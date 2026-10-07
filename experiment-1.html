@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Library Management System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f6f8;
+        }
+
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background: #34495e;
+            text-align: center;
+            padding: 12px;
+        }
+
+        nav button {
+            padding: 10px 18px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: white;
+            color: #34495e;
+        }
+
+        nav button:hover {
+            background: #1abc9c;
+            color: white;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 25px auto;
+        }
+
+        .section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        h2 {
+            color: #2c3e50;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 6px;
+            width: 90%;
+            max-width: 350px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+
+        button.action {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            background: #3498db;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button.action:hover {
+            background: #2980b9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #34495e;
+            color: white;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📚 Local Library Management System</h1>
+    <p>Search, Borrow and Manage Library Books</p>
+</header>
+
+<nav>
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('user')">User</button>
+    <button onclick="showSection('admin')">Librarian Admin</button>
+</nav>
+
+<div class="container">
+
+    <!-- HOME -->
+    <div id="home" class="section">
+        <h2>Welcome to Our Library</h2>
+        <p>
+            This website helps students and librarians manage books,
+            borrowing, returning, fines and study materials.
+        </p>
+
+        <h3>Search Books</h3>
+        <input type="text" id="search" placeholder="Enter book name">
+        <button class="action" onclick="searchBook()">Search</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Book Name</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="bookTable">
+                <tr>
+                    <td>101</td>
+                    <td>Java Programming</td>
+                    <td>James Gosling</td>
+                    <td>Available</td>
+                </tr>
+                <tr>
+                    <td>102</td>
+                    <td>Python Basics</td>
+                    <td>Mark Lutz</td>
+                    <td>Issued</td>
+                </tr>
+                <tr>
+                    <td>103</td>
+                    <td>Data Structures</td>
+                    <td>Narasimha Karumanchi</td>
+                    <td>Available</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- USER SECTION -->
+    <div id="user" class="section hidden">
+
+        <h2>User Login</h2>
+
+        <input type="text" placeholder="Username">
+        <br>
+        <input type="password" placeholder="Password">
+        <br>
+        <button class="action" onclick="login()">Login</button>
+        <button class="action" onclick="register()">Register</button>
+
+        <hr>
+
+        <h2>User Services</h2>
+
+        <button class="action" onclick="alert('Searching books...')">
+            Search Book
+        </button>
+
+        <button class="action" onclick="borrowHistory()">
+            My Borrow History
+        </button>
+
+        <button class="action" onclick="alert('Your fine is ₹20')">
+            Check Fine
+        </button>
+
+        <button class="action" onclick="alert('Materials for Year 2026 - Semester 1')">
+            Search Material
+        </button>
+
+        <button class="action" onclick="alert('Material downloaded successfully')">
+            Download Material
+        </button>
+
+        <button class="action" onclick="alert('Profile: Student User')">
+            My Profile
+        </button>
+
+        <h3>My Borrow History</h3>
+
+        <table>
+            <tr>
+                <th>Book</th>
+                <th>Issue Date</th>
+                <th>Expected Return Date</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>Java Programming</td>
+                <td>01-10-2026</td>
+                <td>15-10-2026</td>
+                <td>Issued</td>
+            </tr>
+        </table>
+
+    </div>
+
+
+    <!-- ADMIN SECTION -->
+    <div id="admin" class="section hidden">
+
+        <h2>Librarian Admin Login</h2>
+
+        <input type="text" placeholder="Admin Username">
+        <br>
+        <input type="password" placeholder="Admin Password">
+        <br>
+
+        <button class="action" onclick="login()">
+            Login
+        </button>
+
+        <hr>
+
+        <h2>Admin Operations</h2>
+
+        <h3>Add Book</h3>
+
+        <input type="text" id="bookName" placeholder="Book Name">
+        <input type="text" id="author" placeholder="Author">
+        <br>
+
+        <button class="action" onclick="addBook()">
+            Add Book
+        </button>
+
+        <h3>Book Management</h3>
+
+        <button class="action" onclick="updateBook()">
+            Update Book
+        </button>
+
+        <button class="action" onclick="deleteBook()">
+            Delete Book
+        </button>
+
+        <button class="action" onclick="issueBook()">
+            Issue Book for Student
+        </button>
+
+        <button class="action" onclick="returnBook()">
+            Return Book Status
+        </button>
+
+        <button class="action" onclick="makeFine()">
+            Make Fine
+        </button>
+
+        <h3>Study Material</h3>
+
+        <select>
+            <option>Select Year</option>
+            <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+            <option>4th Year</option>
+        </select>
+
+        <select>
+            <option>Select Semester</option>
+            <option>Semester 1</option>
+            <option>Semester 2</option>
+        </select>
+
+        <br>
+
+        <button class="action" onclick="updateMaterial()">
+            Update Material
+        </button>
+
+        <button class="action" onclick="viewMaterial()">
+            View Material
+        </button>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Local Library Management System</p>
+</footer>
+
+
+<script>
+
+    function showSection(section) {
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("user").classList.add("hidden");
+        document.getElementById("admin").classList.add("hidden");
+
+        document.getElementById(section).classList.remove("hidden");
+    }
+
+    function login() {
+        alert("Login successful!");
+    }
+
+    function register() {
+        alert("Registration completed successfully!");
+    }
+
+    function searchBook() {
+
+        let input = document.getElementById("search")
+                        .value.toLowerCase();
+
+        let rows = document.querySelectorAll("#bookTable tr");
+
+        rows.forEach(function(row) {
+
+            let book = row.cells[1].innerText.toLowerCase();
+
+            if (book.includes(input)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+
+    function addBook() {
+
+        let name = document.getElementById("bookName").value;
+        let author = document.getElementById("author").value;
+
+        if (name == "" || author == "") {
+            alert("Enter book name and author");
+            return;
+        }
+
+        let table = document.getElementById("bookTable");
+
+        let row = table.insertRow();
+
+        row.innerHTML =
+            "<td>104</td>" +
+            "<td>" + name + "</td>" +
+            "<td>" + author + "</td>" +
+            "<td>Available</td>";
+
+        alert("Book added successfully!");
+    }
+
+    function updateBook() {
+        alert("Book updated successfully!");
+    }
+
+    function deleteBook() {
+        alert("Book deleted successfully!");
+    }
+
+    function issueBook() {
+        alert("Book issued to student successfully!");
+    }
+
+    function returnBook() {
+        alert("Book returned successfully!");
+    }
+
+    function makeFine() {
+        alert("Fine calculated: ₹20");
+    }
+
+    function borrowHistory() {
+        alert("Borrow History: Java Programming - Issued");
+    }
+
+    function updateMaterial() {
+        alert("Material updated successfully!");
+    }
+
+    function viewMaterial() {
+        alert("Displaying study materials...");
+    }
+
+</script>
+
+</body>
+</html>
